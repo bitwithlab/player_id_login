@@ -21,8 +21,8 @@ def player_id_login(login_id: str):
         timeout=10,
     )
     dd_cookie = get_date_token.json().get('cookie')
-    print(dd_cookie)
-    cookies['datadome'] = dd_cookie.split(';')[0].replace('datadome=', '')
+    # cookies['datadome'] = dd_cookie.split(';')[0].replace('datadome=', '')
+    cookies['datadome'] = "fUrrtd6u5VzQAU0X3jMjtcJIabOONqolvqI5k_aB6N2hdzSoLYNLFTKqdUfnSfv6rSzm3sCjsnFCOM24DCuOnL2~PyrWDmWTcaoKYw0TsaEOsn2U7kmyLWlXSviDlrkp"
     json_data = {'app_id': 100067,'login_id': login_id,}
     headers = {
         'Accept': 'application/json, text/plain, */*',
