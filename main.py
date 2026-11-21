@@ -36,10 +36,10 @@ def player_id_login(login_id: str):
         'sec-ch-ua': '"Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',}
-    response = requests.post('https://shop.garena.my/api/auth/player_id_login' , cookies={'region': 'MY',
+    response = session.post('https://shop.garena.my/api/auth/player_id_login' , cookies={'region': 'MY',
             'language': 'en',
             'source': 'pc',
-            "datadome": dd_cookie
+            "datadome": "H8gZbeqY9_EZT99fFA~hTVY7UKFQ5P93GrFYXzA47xsZi_odg_~8XrcRprd8zTqhV3mzW2kPMCh9rxk5Cgc4doObxhGZHzOEs6Iw2PGbggvicpLNcU6Q1UVB9MhJmX_V"
             }, headers=headers , json=json_data)
     resp_json = response.json()
     print(f"Response JSON: {resp_json}")
