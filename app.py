@@ -1,14 +1,15 @@
-# import os
+import os
 import time
 import requests
 from fastapi import FastAPI, HTTPException
-# os.system("cls")
+os.system("cls")
 
 app = FastAPI()
 session = requests.Session()
 @app.get("/api/player_id_login")
 def player_id_login(login_id: str):
     print(f"Received login_id: {login_id}")
+    return login_id
     cookies = {'region': 'MY',
         'language': 'en',
         'source': 'pc',}
