@@ -1,12 +1,12 @@
-import os
-
+# import os
+import time
 import requests
 from fastapi import FastAPI, HTTPException
-os.system("cls")
+# os.system("cls")
 
 app = FastAPI()
 session = requests.Session()
-@app.post("/api/player_id_login")
+@app.get("/api/player_id_login")
 def player_id_login(login_id: str):
     print(f"Received login_id: {login_id}")
     cookies = {'region': 'MY',
@@ -40,6 +40,7 @@ def player_id_login(login_id: str):
         'sec-ch-ua-platform': '"Windows"',}
     response = requests.post('https://shop.garena.my/api/auth/player_id_login' , cookies=cookies, headers=headers , json=json_data)
     resp_json = response.json()
+    print(f"Response JSON: {resp_json}")
     nickname = resp_json.get("nickname")
     if not nickname:
         return {"error": "Nickname not found"}
@@ -49,7 +50,9 @@ def player_id_login(login_id: str):
         return {"error": "Invalid region"}
     return {"nickname": nickname,
             "player_id": login_id,
-             "cookies": "" + ";".join([f"{key}={value}" for key, value in response.cookies.get_dict().items()])}
+             "cookies": "" + ";".join([f"{key}={value}" for key, value in response.cookies.get_dict().items()]),
+             "timestamp": int(time.time())
+             }
 
 
 if __name__ == "__main__":
