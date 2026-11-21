@@ -9,9 +9,7 @@ session = requests.Session()
 @app.get("/api/player_id_login")
 def player_id_login(login_id: str):
     print(f"Received login_id: {login_id}")
-    cookies = {'region': 'MY',
-        'language': 'en',
-        'source': 'pc',}
+    
     get_date_token = session.post(
         "https://datadome.garena.com/js/",
         headers={"referer": "https://shop.garena.sg/",
@@ -20,9 +18,8 @@ def player_id_login(login_id: str):
         data={"ddk": "AE3F04AD3F0D3A462481A337485081"},
         timeout=10,
     )
-    dd_cookie = get_date_token.json().get('cookie')
-    # cookies['datadome'] = dd_cookie.split(';')[0].replace('datadome=', '')
-    cookies['datadome'] = "fUrrtd6u5VzQAU0X3jMjtcJIabOONqolvqI5k_aB6N2hdzSoLYNLFTKqdUfnSfv6rSzm3sCjsnFCOM24DCuOnL2~PyrWDmWTcaoKYw0TsaEOsn2U7kmyLWlXSviDlrkp"
+    dd_cookie = get_date_token.json().get('cookie').split(';')[0].replace('datadome=', '')
+    print(f"Received dd_cookie: {dd_cookie}")
     json_data = {'app_id': 100067,'login_id': login_id,}
     headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -39,7 +36,11 @@ def player_id_login(login_id: str):
         'sec-ch-ua': '"Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',}
-    response = requests.post('https://shop.garena.my/api/auth/player_id_login' , cookies=cookies, headers=headers , json=json_data)
+    response = requests.post('https://shop.garena.my/api/auth/player_id_login' , cookies={'region': 'MY',
+            'language': 'en',
+            'source': 'pc',
+            "datadome": dd_cookie
+            }, headers=headers , json=json_data)
     resp_json = response.json()
     print(f"Response JSON: {resp_json}")
     nickname = resp_json.get("nickname")
