@@ -14,6 +14,7 @@ def player_id_login(login_id: str):
         "https://datadome.garena.com/js/",
         headers={"referer": "https://shop.garena.sg/",
             "origin": "https://shop.garena.sg",
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
             "content-type": "application/x-www-form-urlencoded"},
         data={"ddk": "AE3F04AD3F0D3A462481A337485081"},
         timeout=10,
@@ -32,14 +33,14 @@ def player_id_login(login_id: str):
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
         'sec-ch-ua': '"Not-A.Brand";v="99", "Google Chrome";v="157", "Chromium";v="157"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',}
     response = session.post('https://shop.garena.my/api/auth/player_id_login' , cookies={'region': 'MY',
             'language': 'en',
-            'source': 'pc',
-            "datadome": "H8gZbeqY9_EZT99fFA~hTVY7UKFQ5P93GrFYXzA47xsZi_odg_~8XrcRprd8zTqhV3mzW2kPMCh9rxk5Cgc4doObxhGZHzOEs6Iw2PGbggvicpLNcU6Q1UVB9MhJmX_V"
+            # 'source': 'linux',
+            "datadome": dd_cookie
             }, headers=headers , json=json_data)
     resp_json = response.json()
     print(f"Response JSON: {resp_json}")
@@ -60,3 +61,5 @@ def player_id_login(login_id: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+    #uvicorn main:app --host 0.0.0.0 --port $PORT
