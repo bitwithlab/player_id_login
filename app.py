@@ -9,7 +9,6 @@ session = requests.Session()
 @app.get("/api/player_id_login")
 def player_id_login(login_id: str):
     print(f"Received login_id: {login_id}")
-    return login_id
     cookies = {'region': 'MY',
         'language': 'en',
         'source': 'pc',}
@@ -41,6 +40,7 @@ def player_id_login(login_id: str):
         'sec-ch-ua-platform': '"Windows"',}
     response = requests.post('https://shop.garena.my/api/auth/player_id_login' , cookies=cookies, headers=headers , json=json_data)
     resp_json = response.json()
+    return resp_json
     print(f"Response JSON: {resp_json}")
     nickname = resp_json.get("nickname")
     if not nickname:
